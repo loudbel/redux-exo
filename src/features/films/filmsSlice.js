@@ -9,14 +9,12 @@ const initialState = {
     error: '',
 };
 
-export const fetchMovies = createAsyncThunk('film/fetchMovies', ()=>{
-   return axios('https://www.omdbapi.com/?apikey=edf8783e&r=json&type=movie&s=batman')
+export const fetchMovies = createAsyncThunk('film/fetchMovies', (s)=>{
+   const q = !s || s.length == 0 ? 'bat' : s
+   return axios('https://www.omdbapi.com/?apikey=edf8783e&r=json&type=movie&s='+q)
    .then(function (response) {
-     return response.data.Search
-   })
-   .catch(function (error) {
-     return error
-   });
+     return response.data
+   }) 
 })
 
 const filmsSlice = createSlice({
@@ -24,7 +22,7 @@ const filmsSlice = createSlice({
     initialState,
     reducers: {
         addFilm: (state,action)=>{
-            state.films.unshift(action.payload)
+            state.films.Search.unshift(action.payload)
         }
     },
     extraReducers: (builder) => {
@@ -40,6 +38,7 @@ const filmsSlice = createSlice({
                 state.loading = false
                 state.films = []
                 state.error = action.error.message
+                console.log('errrroooor')
             })
     }
 });

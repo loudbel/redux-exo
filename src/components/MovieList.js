@@ -16,12 +16,8 @@ function MovieList() {
 
     useEffect(() => {
         dispatch(fetchMovies())
+        console.log(film);
       }, [])
-
-      useEffect(() => {
-        const res = film.films.filter(result => result.Title.toLowerCase().indexOf(keywords.toLowerCase()) !== -1);
-        dispatch(filtred(res));
-      }, [keywords])
 
   return (
     <>
@@ -29,25 +25,11 @@ function MovieList() {
     <Filter />
     {film.loading && <div>Loading...</div>}
     {!film.loading && film.error ? <div>Error : {film.error}</div> : null}
-
-    {!film.loading && filtredFilms.length ? (
+    {!film.loading && !film.error && film.films.Response == "False" ? <div>Error : {film.films.Error}</div> : null}
+    {/*console.log(film.films)*/}
+    {!film.loading && film.films.Response =="True" ? ( 
         <div className='movies'>
-        {filtredFilms.map((movie, key)=>{
-        return (
-            <MovieCard 
-            key= {key} 
-            title={movie.Title} 
-            year={movie.Year} 
-            poster={movie.Poster} 
-            />
-            )
-        })
-        }
-    
-    </div>
-    ) : !film.loading && film.films.length ? (
-        <div className='movies'>
-        {film.films.map((movie, key)=>{
+        {film.films.Search.map((movie, key)=>{ 
         return (
             <MovieCard 
             key= {key} 
