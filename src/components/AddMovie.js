@@ -1,25 +1,35 @@
-/*import { useSelector, useDispatch } from "react-redux";
-import {getFilms,createFilm,deleteFilm}from '../redux/features/filmsSlice'
-*/
+import {addFilm} from '../features/films/filmsSlice'
+import { useSelector, useDispatch } from "react-redux";
 
 
-function AddMovie({films}) {
-  /*
+
+function AddMovie() {
+    const film = useSelector((state)=>state.film)
     const dispatch = useDispatch();
-    const newFilm = useSelector(state => state.newFilm);
-
-    const handlerAdd = ()=>{
-
+    
+    const handlerAdd = (e)=>{
+      e.preventDefault();
+      const inputs = e.target.children;
+      
+      const newFilm = {
+        Title:inputs.Title.value,
+        Year:Number(inputs.Year.value),
+        Poster:inputs.Poster.value
+        }
+        console.log(newFilm)
+    dispatch(addFilm(newFilm))
     }
-*/
+
   return (
-    <>{/**  <div>
-        {newFilm.Title}
-        <input placeholder='Film Title' type="text" onChange={(e) => dispatch(addtitle(e.target.value))} ></input>
-        <input placeholder='Film Year' type="number" onChange={(e) => dispatch(addyear(e.target.value))} ></input>
-        <input placeholder='Film Poster' type="link" onChange={(e) => dispatch(addposter(e.target.value))}></input>
-        <button onClick={handlerAdd}>Add</button>
-    </div>*/}</>
+    <>
+    {<form onSubmit={(e)=>handlerAdd(e)}>
+        <input name="Title" placeholder='Film Title' type="text" ></input>
+        <input name="Year" placeholder='Film Year' type="number" ></input>
+        <input name="Poster" placeholder='Film Poster' type="link" ></input>
+        <input type="submit" value="Add"></input>
+        
+    </form>}
+    </>
    
   )
 }

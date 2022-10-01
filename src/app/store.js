@@ -1,5 +1,4 @@
-import  {configureStore} from "@reduxjs/toolkit"
-//import newFilmReducer from "./features/filmSlice"
+import {configureStore} from "@reduxjs/toolkit"
 import filmsReducer from "../features/films/filmsSlice"
 import searchReducer from "../features/films/searchSlice"
 

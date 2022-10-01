@@ -11,9 +11,12 @@ const searchSlice = createSlice({
     reducers: {
         filter: (state,action)=>{
             state.keywords = action.payload
+        },
+        filtred: (state,action)=>{
+            state.filtredFilms = action.payload
         }
     }
 })
 
 export default searchSlice.reducer
-export const { filter } = searchSlice.actions
+export const { filter, filtred } = searchSlice.actions
